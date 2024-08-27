@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator clientERD {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  password  String    @db.Text
+  type      UserType  @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  roomEquipments RoomEquipment[] @relation("UserRoomEquipments")
+}
+
+model Room {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+
+  roomEquipments RoomEquipment[] @relation("RoomEquipments")
+}
+
+model Equipment {
+  id             Int             @id @default(autoincrement())
+  name           String
+  description    String?
+  qty            Int
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime?
+  roomEquipments RoomEquipment[] @relation("EquipmentRoomEquipments")
+  Consumption    Consumption[]
+}
+
+model RoomEquipment {
+  id            Int          @id @default(autoincrement())
+  roomId        Int
+  equipmentId   Int
+  userId        Int
+  quantity      Int
+  status        ReturnStatus @default(PENDENTE)
+  allocatedAt   DateTime     @default(now())
+  shoudReturnAT DateTime?
+  // duration in days
+  room          Room         @relation("RoomEquipments", fields: [roomId], references: [id])
+  equipment     Equipment    @relation("EquipmentRoomEquipments", fields: [equipmentId], references: [id], onDelete: Cascade)
+  user          User         @relation("UserRoomEquipments", fields: [userId], references: [id])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime?
+
+  @@unique([roomId, equipmentId])
+}
+
+model Consumption {
+  id Int @id @default(autoincrement())
+
+  equipment   Equipment @relation(fields: [equipmentId], references: [id])
+  equipmentId Int
+  qty         Decimal
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+}
+
+enum ReturnStatus {
+  PENDENTE
+  DEVOLVIDO
+  ATRASADO
+}
+
+enum UserType {
+  USER
+  ADMIN
+}
