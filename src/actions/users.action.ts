@@ -75,21 +75,11 @@ export async function storeUser(
         password: hashedPassword,
       },
     });
-  } catch (error) {
-    if (error instanceof Error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === "P2002") {
-          return {
-            feedback: {
-              otherErrors: ["Registro já existe"],
-            },
-          };
-        }
-      }
-
+  } catch (error: any) {
+    if (error.code === "P2002") {
       return {
         feedback: {
-          otherErrors: ["Erro no formato das datas"],
+          otherErrors: ["Registro já existe"],
         },
       };
     } else {

@@ -15,7 +15,7 @@ export default function AppCardStats({ name, link }: Props) {
           <CardTitle className="text-sm font-medium">{name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">3</div>
+          {/* <div className="text-2xl font-bold">3</div> */}
         </CardContent>
       </Card>
     </Link>

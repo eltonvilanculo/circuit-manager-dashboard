@@ -1,15 +1,17 @@
 {
-  "name": "control_dashboard",
+  "name": "controldashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel-build": "npx prisma generate; npx prisma migrate deploy"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
+    "@prisma/client": "^5.19.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -29,9 +31,11 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "firebase": "^10.13.0",
     "lucide-react": "^0.406.0",
     "next": "14.2.4",
     "next-auth": "^4.24.7",
+    "prisma": "^5.19.0",
     "react": "^18",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
