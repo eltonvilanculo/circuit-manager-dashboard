@@ -7,9 +7,11 @@ import { AppTable } from "@/components/AppTable";
 import paths from "@/utils/paths";
 import { indexRooms } from "@/data/db/queries/room.query";
 import { roomColumns } from "@/feature/room/room.columns";
+import { getFirebaseEquipmentStatus } from "@/controller/firebase.controller";
 
 export default async function CompartmentsPage() {
   const list = await indexRooms();
+
   return (
     <section className="space-y-12">
       <AppButton label="Adicionar sala" href="/compartimentos/criar" />
