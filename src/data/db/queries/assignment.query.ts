@@ -34,7 +34,7 @@ export const indexAssignment = cache(async () => {
     },
   });
 
-  assignments.forEach(async (row) => {
+  assignments.forEach(async (row: any) => {
     if (
       row.shoudReturnAT &&
       row.shoudReturnAT < new Date() &&

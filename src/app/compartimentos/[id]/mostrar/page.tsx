@@ -6,6 +6,7 @@ import {
   updateTriggerValue,
 } from "@/controller/firebase.controller";
 import { onValue } from "firebase/database";
+import SkeletonCard from "@/components/AppSkeleton";
 
 type Props = {
   params: {
@@ -63,23 +64,27 @@ export default function Page({ params }: Props) {
     return () => unsubscribe();
   }, [equipmentStatus]); // Add `params.id` to the dependency array
 
-  return (
-    <div className="grid grid-cols-2 items-center gap-32">
-      {roomEquipments.map((room) => (
-        <AppSwitch
-          key={room.equipment.id}
-          name={room.equipment.name}
-          id={room.equipment.id}
-          active={equipmentStatus}
-          consumption={equpmentData?.kwh || 0}
-          i={equpmentData?.i}
-          p={equpmentData?.p}
-          v={equpmentData?.v}
-          handleToggle={handleToggle}
+  if (roomEquipments.length < 1) {
+    return <SkeletonCard />;
+  } else {
+    return (
+      <div className="grid grid-cols-2 items-center gap-32">
+        {roomEquipments.map((room) => (
+          <AppSwitch
+            key={room.equipment.id}
+            name={room.equipment.name}
+            id={room.equipment.id}
+            active={equipmentStatus}
+            consumption={equpmentData?.kwh || 0}
+            i={equpmentData?.i}
+            p={equpmentData?.p}
+            v={equpmentData?.v}
+            handleToggle={handleToggle}
 
-          // Show consumption from Firebase data
-        />
-      ))}
-    </div>
-  );
+            // Show consumption from Firebase data
+          />
+        ))}
+      </div>
+    );
+  }
 }

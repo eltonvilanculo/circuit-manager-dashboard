@@ -14,7 +14,7 @@ POST http://localhost:3000/api/signup
 content-type: application/json
 
 {
-    "email": "elton.vilanculo@vae.co.mz",
-    "name": "elton",
+    "email": "furkhan.mote@gmail.com",
+    "name": "Furkhan",
     "password": "12345678"
 }

@@ -1,13 +1,9 @@
 "use server";
-import { Badge } from "@/components/ui/badge";
-import SwitchField from "@/components/compartment/SwitchField";
+
 import AppCardStats from "@/components/AppCardStats";
 import AppButton from "@/components/AppButton";
-import { AppTable } from "@/components/AppTable";
-import paths from "@/utils/paths";
+
 import { indexRooms } from "@/data/db/queries/room.query";
-import { roomColumns } from "@/feature/room/room.columns";
-import { getFirebaseEquipmentStatus } from "@/controller/firebase.controller";
 
 export default async function CompartmentsPage() {
   const list = await indexRooms();
@@ -16,7 +12,7 @@ export default async function CompartmentsPage() {
     <section className="space-y-12">
       <AppButton label="Adicionar sala" href="/compartimentos/criar" />
       <div className="grid grid-cols-2 items-center gap-4">
-        {list.map((room) => (
+        {list.map((room: any) => (
           <AppCardStats
             key={room.id}
             name={room.name}

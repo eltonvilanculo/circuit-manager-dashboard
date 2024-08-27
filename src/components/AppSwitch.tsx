@@ -43,10 +43,10 @@ export default function AppSwitch({
         {name}
       </Label>
       <div className="flex flex-grid items-center gap-2">
-        <Badge className="text-sm bg-white w-full">Consumo {consumption}</Badge>
-        <Badge className="text-sm bg-white w-ful">Intensidade {i}</Badge>
-        <Badge className="text-sm bg-white w-ful">Tensão {v}</Badge>
-        <Badge className="text-sm bg-white w-ful">Potência {p}</Badge>
+        <p className="text-sm">Consumo {consumption}</p>
+        <p className="text-sm">Intensidade {i}</p>
+        <p className="text-sm">Tensão {v}</p>
+        <p className="text-sm">Potência {p}</p>
       </div>
 
       <Switch

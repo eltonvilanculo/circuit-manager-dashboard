@@ -35,14 +35,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: "Signup successful", user: newUser });
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2002") {
-        // Unique constraint failed
-        return NextResponse.json(
-          { message: "Email already in use" },
-          { status: 400 }
-        );
-      }
+    if (error instanceof Error) {
       return NextResponse.json(
         { message: "Signup failed", error: error.message },
         { status: 500 }
